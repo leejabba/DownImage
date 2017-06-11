@@ -43,11 +43,16 @@ public class MainActivity extends AppCompatActivity {
                 public void run() {
                     super.run();
                     try {
+                        // URL 객체로부터 스트림을 열고
                         InputStream is = new URL(addr).openStream();
+                        // BitmapFactory의 decodeStream 메서드를 호출하면
+                        // 원격지의 이미지 스트림을 읽어 비트맵 객체로 변환한다.
                         Bitmap bit = BitmapFactory.decodeStream(is);
                         is.close();
 
+                        // 변환된 비트맵을 핸들러로 보내 레이아웃의 이미지뷰에 출력
                         Message message = mAfterDown.obtainMessage();
+                        // 비트맵 값을 메시지로 넘기기 위해 오브젝트 형식으로 담아보낸다.
                         message.obj = bit;
                         mAfterDown.sendMessage(message);
                     } catch (IOException e) {
